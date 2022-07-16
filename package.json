@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/heshamsalehmohammed/products-engine/issues"
   },
-  "homepage": "https://github.com/heshamsalehmohammed/products-engine#readme"
+  "homepage": "https://github.com/heshamsalehmohammed/products-engine#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
