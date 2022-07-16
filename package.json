@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/heshamsalehmohammed/products-engine#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "chalk": "^4.1.1",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   }
 }
