@@ -20,6 +20,7 @@ productsRouter.route('/').get((req, res) => {
       res.render('products', {
         data: products,
       });
+      client.close();
     } catch (error) {
       debug(error.stack);
     }
