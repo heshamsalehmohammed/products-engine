@@ -64,7 +64,7 @@ productsRouter.route('/addEdit/:id?').post((req, res) => {
       if (id) {
         const result = await db
           .collection('products')
-          .updateOne({_id: id}, {$set: {Name: name, Description: description}});
+          .updateOne({_id: new ObjectId(id)}, {$set: {Name: name, Description: description}});
         res.redirect(`/products/${id}`);
       } else {
         const result = await db
