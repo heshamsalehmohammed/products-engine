@@ -36,10 +36,9 @@
         </button>
       </td>
       <td scope="col" class="text-center align-middle">
-        <form name="delete" action="/products/delete/<%= p._id %>" method="post">
-          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="Delete">
-          </input>
-        </form>
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3 delete">
+          Delete
+        </button>
       </td>
       <% } %>
     </tr>
@@ -48,26 +47,25 @@
 </table>
 
 <%- include('loader'); -%>
+<%- include('deleteConfirmation'); -%>
 
 <script>
   $('button.edit').click(function (e) {
     e.preventDefault();
     var tr = $(this).closest('tr'),
       modal = $('#addEditModal'),
-      loader= $('#loaderModal');
+      loader = $('#loaderModal');
     // make AJAX call passing the ID
-loader.modal('show');
-    $.get('/productsApi/' + tr.data('id'),()=>{
-      
-    })
+    loader.modal('show');
+    $.get('/productsApi/' + tr.data('id'), () => {})
       .done(function (data) {
         debugger;
         // set values in modal
         modal.find('form').attr('action', '/products/addEdit/' + tr.data('id'));
         modal.find('#productNameInput').val(data.Name);
         modal.find('#productDescriptionInput').val(data.Description);
-        modal.find('#addEditSubmitBtn').val("Edit Product");
-        modal.find('#addEditModalLabel').text("Edit Product");
+        modal.find('#addEditSubmitBtn').val('Edit Product');
+        modal.find('#addEditModalLabel').text('Edit Product');
         // open modal
         modal.modal('show');
         loader.modal('hide');
@@ -75,5 +73,12 @@ loader.modal('show');
       .fail(function () {
         alert('error');
       });
+  });
+  $('button.delete').click(function (e) {
+    e.preventDefault();
+    var tr = $(this).closest('tr'),
+      modal = $('#deleteConfirmation');
+    modal.find('form').attr('action', '/products/delete/' + tr.data('id'));
+    modal.modal('show');
   });
 </script>
