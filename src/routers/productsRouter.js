@@ -19,6 +19,7 @@ productsRouter.route('/').get((req, res) => {
 
       res.render('products', {
         data: products,
+        user: req.user,
       });
       client.close();
     } catch (error) {
@@ -41,7 +42,52 @@ productsRouter.route('/:id').get((req, res) => {
         .findOne({_id: new ObjectId(id)});
       res.render('product', {
         data: product,
+        user: req.user,
       });
+    } catch (error) {
+      debug(error.stack);
+    }
+  })();
+});
+
+productsRouter.route('/addEdit/:id?').post((req, res) => {
+  const id = req.query.id;
+  const {name, description} = req.body;
+
+  (async function mongo() {
+    let client;
+    try {
+      client = await MongoClient.connect(url);
+      debug('Connected to Mongo DB');
+      const db = client.db(dbName);
+
+      if (id) {
+        const result = await db
+          .collection('products')
+          .updateOne({_id: id}, {$set: {Name: name, Description: description}});
+        res.redirect(`/products/${id}`);
+      } else {
+        const result = await db
+          .collection('products')
+          .insertOne({Name: name, Description: description, Image: 'p1.jpeg'});
+        res.redirect(`/products/${result.insertedId}`);
+      }
+    } catch (error) {
+      debug(error.stack);
+    }
+  })();
+});
+
+productsRouter.route('/delete/:id').post((req, res) => {
+  const id = req.params.id;
+  (async function mongo() {
+    let client;
+    try {
+      client = await MongoClient.connect(url);
+      debug('Connected to Mongo DB');
+      const db = client.db(dbName);
+      const result = await db.collection('products').deleteOne({_id: new ObjectId(id)});
+      res.redirect(`/dashboard/`);
     } catch (error) {
       debug(error.stack);
     }

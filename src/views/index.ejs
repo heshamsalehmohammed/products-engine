@@ -1,152 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hesham Saleh</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- CSS only -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" type="image/x-icon" href="images/G.png" />
-  </head>
+  <%- include('head'); -%>
 
   <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Hesham</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/products">Products</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%- include('nav',{user}); -%>
 
-    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-      <div class="row align-items-center g-lg-5 py-5">
-        <div class="col-lg-7 text-center text-lg-start">
-          <h1 class="display-4 fw-bold lh-1 mb-3">This is Hesham Saleh</h1>
-          <p class="col-lg-10 fs-4">
-            Admin : admin@admin.com 123456 
-          </p>
-          <p class="col-lg-10 fs-4">
-            User : user@user.com 123456 
-          </p>
-          <form class="p-2" name="login" action="/auth/login" method="post">
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingLoginInput"
-                placeholder="name@example.com"
-                name="email"
-              />
-              <label for="floatingLoginInput">Email address</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                id="floatingLoginPassword"
-                placeholder="Password"
-                name="password"
-                autocomplete="on"
-              />
-              <label for="floatingLoginPassword">Password</label>
-            </div>
-            <input class="w-100 btn btn-lg btn-primary" value="Log In" type="submit">
-              
-            </input>
-          </form>
-        </div>
-        <div class="col-md-10 mx-auto col-lg-5">
-          <form
-            name="signup"
-            action="/auth/signup"
-            method="post"
-            class="p-4 p-md-5 border rounded-3 bg-light"
-          >
-            <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingRegisterInput"
-                placeholder="name@example.com"
-                name="email"
-              />
-              <label for="floatingRegisterInput">Email address</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingRegisterInputName"
-                placeholder="Hesham Saleh"
-                name="name"
-              />
-              <label for="floatingRegisterInputName">Name</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                id="floatingRegisterPassword"
-                placeholder="Password"
-                name="password"
-                autocomplete="on"
-              />
-              <label for="floatingRegisterPassword">Password</label>
-            </div>
-            <input class="w-100 btn btn-lg btn-primary" value="Sign Up" type="submit">
-              
-            </input>
-            <hr class="my-4" />
-            <small class="text-muted"
-              >By clicking Sign up, you agree to the terms of use.</small
+    
+    <% if (!user) { %>
+      <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">This is Hesham Saleh</h1>
+            <p class="col-lg-10 fs-4">
+              Admin : admin@admin.com 123456 
+            </p>
+            <p class="col-lg-10 fs-4">
+              User : user@user.com 123456 
+            </p>
+            <form class="p-2" name="login" action="/auth/login" method="post">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingLoginInput"
+                  placeholder="name@example.com"
+                  name="email"
+                />
+                <label for="floatingLoginInput">Email address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="floatingLoginPassword"
+                  placeholder="Password"
+                  name="password"
+                  autocomplete="on"
+                />
+                <label for="floatingLoginPassword">Password</label>
+              </div>
+              <input class="w-100 btn btn-lg btn-primary" value="Log In" type="submit">
+                
+              </input>
+            </form>
+          </div>
+          <div class="col-md-10 mx-auto col-lg-5">
+            <form
+              name="signup"
+              action="/auth/signup"
+              method="post"
+              class="p-4 p-md-5 border rounded-3 bg-light"
             >
-          </form>
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingRegisterInput"
+                  placeholder="name@example.com"
+                  name="email"
+                />
+                <label for="floatingRegisterInput">Email address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingRegisterInputName"
+                  placeholder="Hesham Saleh"
+                  name="name"
+                />
+                <label for="floatingRegisterInputName">Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="floatingRegisterPassword"
+                  placeholder="Password"
+                  name="password"
+                  autocomplete="on"
+                />
+                <label for="floatingRegisterPassword">Password</label>
+              </div>
+              <input class="w-100 btn btn-lg btn-primary" value="Sign Up" type="submit">
+                
+              </input>
+              <hr class="my-4" />
+              <small class="text-muted"
+                >By clicking Sign up, you agree to the terms of use.</small
+              >
+            </form>
+          </div>
         </div>
       </div>
+  <% }else { %>
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+     <h1>Welcome <%= user.name %> </h1> 
     </div>
+    <% } %>
+    
     <!---------- End of Wrapper ----------->
   </body>
   <!-- JavaScript Bundle with Popper -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-    crossorigin="anonymous"
-  ></script>
+  <%- include('foot'); -%>
 </html>

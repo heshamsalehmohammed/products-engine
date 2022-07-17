@@ -24,7 +24,7 @@ authRouter.route('/signup').post((req, res) => {
       debug(results);
 
       req.login(user, () => {
-        res.redirect('/auth/profile');
+        res.redirect('/');
       });
     } catch (error) {
       debug(error);
@@ -35,7 +35,7 @@ authRouter.route('/signup').post((req, res) => {
 
 authRouter.route('/login').post(
   passport.authenticate('local', {
-    successRedirect: '/auth/profile',
+    successRedirect: '/',
     failureRedirect: '/',
   })
 );

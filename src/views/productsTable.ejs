@@ -1,0 +1,79 @@
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col" class="text-center align-middle">#</th>
+      <th scope="col" class="text-center align-middle">Name</th>
+      <th scope="col" class="text-center align-middle">Image</th>
+      <th scope="col" class="text-center align-middle">description</th>
+      <% if(isAdmin) { %>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <% products.map(p => { %>
+    <tr data-id="<%= p._id %>">
+      <th scope="row" class="text-center align-middle">
+        <a href="/products/<%= p._id %>"><%= p._id %></a>
+      </th>
+      <td class="text-center align-middle">
+        <a href="/products/<%= p._id %>"><%= p.Name %></a>
+      </td>
+      <td class="text-center align-middle">
+        <img
+          src="/images/<%= p.Image %>"
+          alt="product image"
+          height="150"
+          width="150"
+        />
+      </td>
+      <td><%= p.Description %></td>
+      <% if(isAdmin) { %>
+      <td scope="col" class="text-center align-middle">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3 edit">
+          Edit
+        </button>
+      </td>
+      <td scope="col" class="text-center align-middle">
+        <form name="delete" action="/products/delete/<%= p._id %>" method="post">
+          <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="Delete">
+          </input>
+        </form>
+      </td>
+      <% } %>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('loader'); -%>
+
+<script>
+  $('button.edit').click(function (e) {
+    e.preventDefault();
+    var tr = $(this).closest('tr'),
+      modal = $('#addEditModal'),
+      loader= $('#loaderModal');
+    // make AJAX call passing the ID
+loader.modal('show');
+    $.get('/productsApi/' + tr.data('id'),()=>{
+      
+    })
+      .done(function (data) {
+        debugger;
+        // set values in modal
+        modal.find('form').attr('action', '/products/addEdit/' + tr.data('id'));
+        modal.find('#productNameInput').val(data.Name);
+        modal.find('#productDescriptionInput').val(data.Description);
+        modal.find('#addEditSubmitBtn').val("Edit Product");
+        modal.find('#addEditModalLabel').text("Edit Product");
+        // open modal
+        modal.modal('show');
+        loader.modal('hide');
+      })
+      .fail(function () {
+        alert('error');
+      });
+  });
+</script>

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/heshamsalehmohammed/products-engine#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "chalk": "^4.1.1",
     "cookie-parser": "^1.4.6",
     "debug": "^4.3.1",

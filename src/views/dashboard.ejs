@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <%- include('head'); -%>
+
+  <body>
+    <%- include('nav',{user}); -%>
+
+    <div class="container p-5">
+      <div class="row p-2 justify-content-between">
+        <div class="col-auto mr-auto"></div>
+        <div class="col-auto">
+          <button
+            type="button"
+            class="btn btn-primary btn-lg px-4 gap-3 addNew"
+            data-bs-toggle="modal"
+            data-bs-target="#addEditModal"
+          >
+            Add New Product
+          </button>
+          <%- include('addEditProduct',{product: null}); -%>
+        </div>
+      </div>
+
+      <%- include('productsTable',{products: data,isAdmin:true}); -%>
+    </div>
+
+    <!---------- End of Wrapper ----------->
+  </body>
+  <!-- JavaScript Bundle with Popper -->
+  <%- include('foot'); -%>
+  <script>
+    $('button.addNew').click(function (e) {
+      e.preventDefault();
+      var modal = $('#addEditModal');
+      modal.find('form').attr('action', '/products/addEdit/');
+      modal.find('#productNameInput').val('');
+      modal.find('#productDescriptionInput').val('');
+      modal.find('#addEditSubmitBtn').val('Add Product');
+      modal.find('#addEditModalLabel').text('Add Product');
+    });
+  </script>
+</html>
