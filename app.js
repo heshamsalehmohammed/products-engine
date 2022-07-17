@@ -12,7 +12,7 @@ const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const productsRouter = require('./src/routers/productsRouter');
-const productsApiRouter = require('./src/routers/productsApiRouter');
+const productsApiRouter = require('./src/restApis/productsApiRouter');
 const authRouter = require('./src/routers/authRouter');
 const dashboardRouter = require('./src/routers/dashboardRouter');
 
