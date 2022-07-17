@@ -24,6 +24,10 @@
         <li class="nav-item">
           <a class="nav-link" href="/dashboard">dashboard</a>
         </li>
+        <% } %> <% if (user) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout">logout</a>
+        </li>
         <% } %>
       </ul>
     </div>

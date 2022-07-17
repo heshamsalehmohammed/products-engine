@@ -44,4 +44,12 @@ authRouter.route('/profile').get((req, res) => {
   res.json(req.user);
 });
 
+authRouter.get('/logout', function (req, res, next) {
+  req.session.destroy(() => {
+    req.logOut(() => {
+      res.redirect('/');
+    });
+  });
+});
+
 module.exports = authRouter;
