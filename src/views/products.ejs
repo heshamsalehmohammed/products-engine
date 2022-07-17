@@ -2,7 +2,7 @@
 <html>
   <%- include('head'); -%>
   <body>
-    <%- include('nav',{user}); -%>
+    <%- include('nav',{user,isFancy:false}); -%>
 
     <div class="container p-5">
       <%- include('productsTable',{products: data,isAdmin:false}); -%>

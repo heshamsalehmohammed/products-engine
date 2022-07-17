@@ -2,8 +2,8 @@
 <html>
   <%- include('head'); -%>
 
-  <body>
-    <%- include('nav',{user}); -%>
+  <body style="overflow: hidden;">
+    <%- include('nav',{user,isFancy:true}); -%>
 
     
     <% if (!user) { %>
@@ -93,14 +93,17 @@
           </div>
         </div>
       </div>
-  <% }else { %>
-    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-     <h1>Welcome <%= user.name %> </h1> 
+    <% }else { %>
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5" style="position: absolute;">
+     <h1 class="" style="padding-top: 200px; padding-left:200px;font-size: xxx-large;font-weight: bolder;">Welcome <%= user.name %> </h1> 
     </div>
+    <%- include('scene'); -%>
     <% } %>
     
     <!---------- End of Wrapper ----------->
   </body>
   <!-- JavaScript Bundle with Popper -->
   <%- include('foot'); -%>
+  
+
 </html>
