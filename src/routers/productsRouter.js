@@ -50,8 +50,27 @@ productsRouter.route('/:id').get((req, res) => {
   })();
 });
 
-productsRouter.route('/addEdit/:id?').post((req, res) => {
-  const id = req.query.id;
+productsRouter.route('/addEdit/').post((req, res) => {
+  const {name, description} = req.body;
+
+  (async function mongo() {
+    let client;
+    try {
+      client = await MongoClient.connect(url);
+      debug('Connected to Mongo DB');
+      const db = client.db(dbName);
+      const result = await db
+        .collection('products')
+        .insertOne({Name: name, Description: description, Image: 'p1.jpeg'});
+      res.redirect(`/products/${result.insertedId}`);
+    } catch (error) {
+      debug(error.stack);
+    }
+  })();
+});
+
+productsRouter.route('/addEdit/:id').post((req, res) => {
+  const id = req.params.id;
   const {name, description} = req.body;
 
   (async function mongo() {
@@ -61,17 +80,13 @@ productsRouter.route('/addEdit/:id?').post((req, res) => {
       debug('Connected to Mongo DB');
       const db = client.db(dbName);
 
-      if (id) {
-        const result = await db
-          .collection('products')
-          .updateOne({_id: new ObjectId(id)}, {$set: {Name: name, Description: description}});
-        res.redirect(`/products/${id}`);
-      } else {
-        const result = await db
-          .collection('products')
-          .insertOne({Name: name, Description: description, Image: 'p1.jpeg'});
-        res.redirect(`/products/${result.insertedId}`);
-      }
+      const result = await db
+        .collection('products')
+        .updateOne(
+          {_id: new ObjectId(id)},
+          {$set: {Name: name, Description: description}}
+        );
+      res.redirect(`/products/${id}`);
     } catch (error) {
       debug(error.stack);
     }
@@ -86,7 +101,9 @@ productsRouter.route('/delete/:id').post((req, res) => {
       client = await MongoClient.connect(url);
       debug('Connected to Mongo DB');
       const db = client.db(dbName);
-      const result = await db.collection('products').deleteOne({_id: new ObjectId(id)});
+      const result = await db
+        .collection('products')
+        .deleteOne({_id: new ObjectId(id)});
       res.redirect(`/dashboard/`);
     } catch (error) {
       debug(error.stack);
